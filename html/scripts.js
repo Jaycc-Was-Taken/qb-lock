@@ -6,15 +6,15 @@ let H = canvas.height;
 let degrees = 0;
 let new_degrees = 0;
 let time = 0;
-let color = "#ff0000";
+let color = "#830011";
 let txtcolor = "#ffffff";
-let bgcolor = "#404b58";
-let bgcolor2 = "#41a491";
-let bgcolor3 = "#00ff00";
+let bgcolor = "#000000";
+let bgcolor2 = "#ffffff";
+let bgcolor3 = "#ffffff";
 let key_to_press;
 let g_start, g_end;
 let animation_loop;
-
+let paused = false; //Pause Function
 
 let needed = 4;
 let streak = 0;
@@ -62,12 +62,12 @@ function init() {
 function draw(time) {
     if (typeof animation_loop !== undefined) clearInterval(animation_loop);
 
-    g_start = getRandomInt(20,40) / 10;
-    g_end = getRandomInt(5,10) / 10;
+    g_start = getRandomInt(15,19) / 9; //Not 100% sure exactly what all these numbers are, but I did a LOT of testing with just random numbers to get it where it is now
+    g_end = 1.5 / 5;
     g_end = g_start + g_end;
 
     degrees = 0;
-    new_degrees = 360;
+    new_degrees = 300; //It stops before the full circle just because it will never actually have a spot be that far away, every spot is in the same area in the circle
 
     key_to_press = ''+getRandomInt(1,4);
 
@@ -77,6 +77,7 @@ function draw(time) {
 }
 
 function animate_to() {
+    if(paused){return;}
     if (degrees >= new_degrees) {
         wrong();
         return;
@@ -89,14 +90,18 @@ function animate_to() {
 function correct(){
     streak += 1;
     if (streak == needed) {
+        pause(250);
         clearInterval(animation_loop)
         endGame(true)
     }else{
+        pause(400);
+        time = (time-1); //Increases the speed by 1 second on each successful skill check
         draw(time);
     };
 }
 
 function wrong(){
+    pause(250)
     clearInterval(animation_loop);
     endGame(false);
 }
@@ -106,8 +111,8 @@ document.addEventListener("keydown", function(ev) {
     let valid_keys = ['1','2','3','4'];
     if( valid_keys.includes(key_pressed) ){
         if( key_pressed === key_to_press ){
-            let d_start = (180 / Math.PI) * g_start;
-            let d_end = (180 / Math.PI) * g_end;
+            let d_start = (180 / Math.PI) * (g_start - 0.05); //Small amount of padding added
+            let d_end = (180 / Math.PI) * (g_end + 0.05);
             if( degrees < d_start ){
                 wrong();
             }else if( degrees > d_end ){
@@ -155,4 +160,15 @@ function startGame(time){
       startGame(time)
     }
   })
-
+//I found the following after a few hours searching about pause and wait functions in javascript, I'll try to find the link, but it was on stackoverflow somewhere.
+function pause(time){
+    paused = true;
+    wait(time)
+    paused = false;
+    }
+function wait(ms){
+    var d = new Date();
+    var d2 = null;
+    do { d2 = new Date(); }
+    while(d2-d < ms);
+    }

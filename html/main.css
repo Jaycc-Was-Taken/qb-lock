@@ -1,15 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 body{
     background-color:transparent;
+    font-family: 'Bebas Neue', cursive;
 }
 
 #canvas {
     position: absolute;
     margin: 50px auto;
     top: 50%;
-    left:50%;
+    left:55%;
     transform: translate(-50%,-50%);
     overflow: visible;
-    height: 250px;
-    width: 250px;
-    color:#822ff6
+    height: 165px;
+    width: 165px;
+    color:#830011;
+    filter: drop-shadow(0px 0px 3px rgb(0, 0, 0));
+    opacity: 0.8;
 }

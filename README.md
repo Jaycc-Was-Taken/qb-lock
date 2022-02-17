@@ -1,6 +1,11 @@
 # qb-lockpick
  NoPixel Based Lockpick for QBFramework
 
+# Changes
+- Decreased the size of the correct zone by a lot
+- Some assorted CSS changes.
+- Added in a "pause" function that makes the moving bar freeze on keypress to give the player a bit feedback on if they succeeded or not.
+- Added a small amount of "padding" to the correct zones since the zone is smaller.  This limits the times that a player can hit the edge of the zone and it not count as a success, and with the pause function allows players to see exactly where they are off at if they are incorrect.
 
 # Template
 exports['qb-lock']:StartLockPickCircle(amount, time, function(success)
